@@ -20,7 +20,8 @@
      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
      document.getElementsByTagName( 'head' )[0].appendChild( link );
     </script>
-    <script src="js/jsverify.standalone.js"></script>
+    <script src="/js/jsverify.standalone.js"></script>
+    <script src="/js/lodash.min.js"></script>
   </head>
   <body>
     <div class="reveal">
@@ -136,7 +137,7 @@ function batch(ticks, seconds) {
             <pre class="fragment">
               <code class="javascript" data-trim style="font-size: 18px;">
 // batch :: Int -> Int -> [Int]
-function batch(ticks, seconds) {}
+function batch(ticks, seconds) { }
               </code>
             </pre>
 
@@ -147,8 +148,34 @@ jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
 }), {tests: 50});
               </code>
             </pre>
+
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 12px;">
+Uncaught Error: Failed after 1 tests and 2 shrinks.
+rngState: 0094fc30e25167abd8;
+Counterexample: 0; 0;
+Exception: Cannot read property 'length' of undefined
+              </code>
+            </pre>
+          </section>
+          <section>
+            <p class="fragment">Funktionen ska alltid svara med en lika lång lista som antal `ticks`</p>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 18px;">
+// batch :: Int -> Int -> [Int]
+function batch(ticks, seconds) { return _.range(ticks); }
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 18px;">
+jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
+    return batch(ticks, seconds).length == ticks;
+}), {tests: 50});
+              </code>
+            </pre>
           </section>
         </section>
+
 
         <section>
           <h2>Tack</h2>
