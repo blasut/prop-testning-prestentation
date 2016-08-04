@@ -142,11 +142,9 @@ function batch(ticks, seconds) {}
 
             <pre class="fragment">
               <code class="javascript" data-trim style="font-size: 18px;">
-var prop = jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
+jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
     return batch(ticks, seconds).length == ticks;
-  });
-
-jsc.assert(prop, {tests: 50});
+}), {tests: 50});
               </code>
             </pre>
           </section>
