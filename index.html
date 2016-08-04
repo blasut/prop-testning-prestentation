@@ -173,6 +173,38 @@ jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
 }), {tests: 50});
               </code>
             </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 12px;">
+Uncaught Error: Failed after 1 tests and 1 shrinks.
+rngState: 8de0b31fda2648c759;
+Counterexample: -1; 0;
+              </code>
+            </pre>
+          </section>
+          <section data-notes="Hur ändra propen? Antingen endast skicka in positiva integers, eller skriva lite kod för att se till att testet alltid är samma i jämförelsefunktionen">
+            <p class="fragment">Funktionen ska alltid svara med en lika lång lista som antal `ticks`</p>
+            <small class="fragment">Funktionen måste validera inputen för att se till att endast positiva värden används</small>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 18px;">
+// batch :: Int -> Int -> [Int]
+function batch(ticks, seconds) {
+  ticks = Math.abs(ticks);
+  return _.range(ticks);
+}
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 18px;">
+jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
+    return batch(ticks, seconds).length == Math.abs(ticks);
+}), {tests: 50});
+              </code>
+            </pre>
+            <pre class="fragment">
+              <code class="javascript" data-trim style="font-size: 12px;">
+undefined
+              </code>
+            </pre>
           </section>
         </section>
 
