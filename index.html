@@ -87,7 +87,12 @@
         <section>
           <h2>Vad är input och output?</h2>
           <ul>
-            <li class="fragment"></li>
+            <li class="fragment">Input är antal gånger och tid att portionera ut requesten</li>
+            <li class="fragment">Output är en lista med millisekunder, som då kan användas för att batcha</li>
+            <li class="fragment">Detta är ett JS system, därför blir outputen i millisekunder, för att lättare passa in med t.ex. timeout()</li>
+            <li class="fragment">Vår lilla dela av systemet är alltså endast delen som räknar ut när vi ska göra något.</li>
+            <li class="fragment">Koden som faktiskt gör requesten är på annat ställe.</li>
+            <li class="fragment">Vår modul går att använda till vilken typ av request som helst, som behöver batchas.</li>
           </ul>
         </section>
 
