@@ -97,15 +97,56 @@
         </section>
 
         <section>
+          <h2>Vad är input och output, kod?</h2>
+          <ul>
+            <li class="fragment">Input är antal gånger och tid att portionera ut requesten</li>
+            <li class="fragment">Output är en lista med millisekunder, som då kan användas för att batcha</li>
+          </ul>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+// batch :: Int -> Int -> [Int]
+function batch(ticks, seconds) {
+}
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h4 class="fragment">Tänk "algebraiska lagar"</h4>
+          <p class="fragment">Alltså: Vad är alltid sant om denna funktion? Oavsett input och output</p>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+// batch :: Int -> Int -> [Int]
+function batch(ticks, seconds) {
+}
+            </code>
+          </pre>
+          <ul>
+            <li class="fragment">Funktionen ska alltid svara med en lika lång lista som antal `ticks`</li>
+            <li class="fragment">Det sista elementet i listan får ej vara högre än antal `sekunder`</li>
+            <li class="fragment">Listan får endast innehålla positiva(unsigned) integers</li>
+            <li class="fragment">Valfri: Får ej innehålla dubletter</li>
+          </ul>
+        </section>
+
+        <section>
           <section>
             <h2>Kod?!</h2>
+            <p class="fragment">Funktionen ska alltid svara med en lika lång lista som antal `ticks`</p>
             <pre class="fragment">
               <code class="javascript" data-trim style="font-size: 18px;">
+// batch :: Int -> Int -> [Int]
+function batch(ticks, seconds) {}
               </code>
             </pre>
 
             <pre class="fragment">
               <code class="javascript" data-trim style="font-size: 18px;">
+var prop = jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
+    return batch(ticks, seconds).length == ticks;
+  });
+
+jsc.assert(prop, {tests: 50});
               </code>
             </pre>
           </section>
