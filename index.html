@@ -40,7 +40,7 @@
 
         <section>
           <h2>Vad?</h2>
-          <ul class="fragment">
+          <ul>
             <li class="fragment">Unit test</li>
             <li class="fragment">Integration test</li>
             <li class="fragment">Property baserad test</li>
@@ -124,7 +124,7 @@ function batch(ticks, seconds) {
           </pre>
           <ul>
             <li class="fragment">Funktionen ska alltid svara med en lika lång lista som antal `ticks`</li>
-            <li class="fragment">Det sista elementet i listan får ej vara högre än antal `sekunder`</li>
+            <li class="fragment">Det sista elementet i listan får ej vara högre än antal `sekunder(*1000)`</li>
             <li class="fragment">Listan får endast innehålla positiva(unsigned) integers</li>
             <li class="fragment">Valfri: Får ej innehålla dubletter</li>
           </ul>
@@ -195,8 +195,8 @@ function batch(ticks, seconds) {
             </pre>
             <pre class="fragment">
               <code class="javascript" data-trim style="font-size: 18px;">
-jsc.assert(jsc.forall(jsc.integer(), jsc.integer(), function (ticks, seconds) {
-    return batch(ticks, seconds).length == Math.abs(ticks);
+jsc.assert(jsc.forall(jsc.nat(), jsc.integer(), function (ticks, seconds) {
+    return batch(ticks, seconds).length == ticks;
 }), {tests: 50});
               </code>
             </pre>
