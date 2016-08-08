@@ -75,6 +75,112 @@
         </section>
 
         <section>
+          <h2>Exempel: testa JavaScript's sort</h2>
+          <ul>
+            <li class="fragment">sort: sorterar element i en array.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Vad är input och output?</h2>
+          <ul>
+            <li class="fragment">Input är en lista med element att sortera</li>
+            <li class="fragment">Output är en lista med samma element, eventuellt i en ny ordning</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Vad för sanningar finns om funktionen?</h2>
+          <ul>
+            <li class="fragment">Lika antal element i listan vid output som input</li>
+            <li class="fragment">Sorterad lista är samma oavsett antal sorteringar</li>
+            <li class="fragment">Det första sorterade är det minsta elementet i listan</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Sorterad lista är samma oavsett antal sorteringar</h2>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
+    return _.isEqual(arr.sort().sort(), arr.sort());
+});
+
+jsc.assert(prop, {tests: 50});
+            </code>
+          </pre>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+Undefined
+            </code>
+          </pre>
+        </section>
+
+        <section>
+          <h2>Lika antal element i listan vid output som input</h2>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
+    return _.isEqual(arr.sort().length, arr.length);
+});
+
+jsc.assert(prop, {tests: 50});
+            </code>
+          </pre>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+Undefined
+            </code>
+          </pre>
+        </section>
+
+        <section data-notes="Detta är pga JS jämför inte siffror som siffror utan varje chars Unicode värde.">
+          <h2>Det första sorterade är det minsta elementet i listan</h2>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
+    return _.isEqual(_.first(arr.sort()), _.min(arr));
+});
+
+jsc.assert(prop, {tests: 50});
+            </code>
+          </pre>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+Uncaught Error: Failed after 18 tests and 5 shrinks.
+rngState: 8521745bed08ac6f39;
+Counterexample: [10, 2];
+            </code>
+          </pre>
+        </section>
+
+        <section data-notes="Detta är pga JS jämför inte siffror som siffror utan varje chars Unicode värde.">
+          <h2>Det första sorterade är det minsta elementet i listan</h2>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+function compareNumbers(a, b) {
+  return a - b;
+}
+            </code>
+          </pre>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
+    return _.isEqual(_.first(arr.sort(compareNumbers)), _.min(arr));
+});
+
+jsc.assert(prop, {tests: 50});
+            </code>
+          </pre>
+          <pre class="fragment">
+            <code class="javascript" data-trim style="font-size: 18px;">
+Undefined
+            </code>
+          </pre>
+        </section>
+
+        <!--
+        <section>
           <h2>Exempel: Batcha R antal requets på S antal sekunder</h2>
           <ul>
             <li class="fragment">Detta är en del-feature av ett större projekt</li>
@@ -208,6 +314,7 @@ undefined
           </section>
         </section>
 
+        -->
 
         <section>
           <h2>Tack</h2>
