@@ -132,7 +132,8 @@
           <pre class="fragment">
             <code class="javascript" data-trim style="font-size: 18px;">
 var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
-    return _.isEqual(arr.sort().sort(), arr.sort());
+    return _.isEqual(arr.sort().sort(),
+                     arr.sort());
 });
 
 jsc.assert(prop, {tests: 50});
@@ -150,7 +151,8 @@ True
           <pre class="fragment">
             <code class="javascript" data-trim style="font-size: 18px;">
 var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
-    return _.isEqual(arr.sort().length, arr.length);
+    return _.isEqual(arr.sort().length,
+                     arr.length);
 });
 
 jsc.assert(prop, {tests: 50});
@@ -168,7 +170,8 @@ True
           <pre class="fragment">
             <code class="javascript" data-trim style="font-size: 18px;">
 var prop = jsc.forall(jsc.array(jsc.nat()), function (arr) {
-    return _.isEqual(_.first(arr.sort()), _.min(arr));
+    return _.isEqual(_.first(arr.sort()),
+                     _.min(arr));
 });
 
 jsc.assert(prop, {tests: 50});
